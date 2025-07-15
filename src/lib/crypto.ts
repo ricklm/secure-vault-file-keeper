@@ -157,14 +157,30 @@ export function isEncryptedFile(file: File): boolean {
  * Downloads a blob as file
  */
 export function downloadBlob(blob: Blob, filename: string): void {
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+  try {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.style.display = 'none';
+    
+    // Use requestAnimationFrame to ensure the element is in the DOM before clicking
+    requestAnimationFrame(() => {
+      document.body.appendChild(a);
+      // Use setTimeout to ensure the element is properly attached
+      setTimeout(() => {
+        a.click();
+        // Clean up after a short delay
+        setTimeout(() => {
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        }, 100);
+      }, 0);
+    });
+  } catch (error) {
+    console.error('Error downloading file:', error);
+    throw new Error('Failed to initiate file download');
+  }
 }
 
 /**
