@@ -107,14 +107,39 @@ export async function encryptFile(file: File, password: string): Promise<Encrypt
  */
 export async function decryptFile(encryptedFile: File, password: string): Promise<EncryptionResult> {
   try {
+    // Verifica se o arquivo é válido
+    if (!(await isEncryptedFile(encryptedFile))) {
+      throw new Error('O arquivo não é um arquivo criptografado válido');
+    }
+
     // Read encrypted file
     const fileText = await encryptedFile.text();
-    const encryptedData = JSON.parse(fileText);
+    let encryptedData;
+    
+    try {
+      encryptedData = JSON.parse(fileText);
+    } catch (error) {
+      throw new Error('Formato de arquivo inválido: não é um JSON válido');
+    }
+    
+    // Valida a estrutura do arquivo
+    const requiredFields = ['encryptedData', 'iv', 'salt', 'filename', 'originalSize'];
+    for (const field of requiredFields) {
+      if (!(field in encryptedData)) {
+        throw new Error(`Formato de arquivo inválido: campo obrigatório '${field}' não encontrado`);
+      }
+    }
     
     // Reconstruct ArrayBuffers from arrays
-    const encryptedBuffer = new Uint8Array(encryptedData.encryptedData).buffer;
-    const iv = new Uint8Array(encryptedData.iv);
-    const salt = new Uint8Array(encryptedData.salt);
+    let encryptedBuffer, iv, salt;
+    
+    try {
+      encryptedBuffer = new Uint8Array(encryptedData.encryptedData).buffer;
+      iv = new Uint8Array(encryptedData.iv);
+      salt = new Uint8Array(encryptedData.salt);
+    } catch (error) {
+      throw new Error('Formato de dados inválido no arquivo criptografado');
+    }
     
     // Derive key from password
     const key = await deriveKey(password, salt);
@@ -139,18 +164,46 @@ export async function decryptFile(encryptedFile: File, password: string): Promis
     
   } catch (error) {
     console.error('Decryption failed:', error);
-    if (error instanceof Error && error.message.includes('decrypt')) {
-      throw new Error('Senha incorreta ou arquivo corrompido');
+    if (error instanceof Error) {
+      if (error.message.includes('decrypt') || error.message.includes('importKey')) {
+        throw new Error('Senha incorreta ou arquivo corrompido');
+      } else if (error.message.includes('JSON')) {
+        throw new Error('Formato de arquivo inválido');
+      } else if (error.message.includes('Formato de')) {
+        // Já tem uma mensagem específica
+        throw error;
+      }
     }
-    throw new Error('Falha na descriptografia do arquivo');
+    throw new Error('Falha na descriptografia do arquivo: ' + (error instanceof Error ? error.message : String(error)));
   }
 }
 
 /**
  * Validates if a file is encrypted (has .enc extension and valid structure)
  */
-export function isEncryptedFile(file: File): boolean {
-  return file.name.endsWith('.enc');
+export async function isEncryptedFile(file: File): Promise<boolean> {
+  // Verifica a extensão do arquivo
+  if (!file.name.endsWith('.enc')) {
+    return false;
+  }
+
+  try {
+    // Tenta ler o conteúdo do arquivo para verificar se tem a estrutura esperada
+    const fileText = await file.text();
+    const fileData = JSON.parse(fileText);
+    
+    // Verifica se o arquivo tem a estrutura esperada
+    return (
+      'encryptedData' in fileData &&
+      'iv' in fileData &&
+      'salt' in fileData &&
+      'filename' in fileData &&
+      'originalSize' in fileData
+    );
+  } catch (error) {
+    console.error('Erro ao validar arquivo criptografado:', error);
+    return false;
+  }
 }
 
 /**
