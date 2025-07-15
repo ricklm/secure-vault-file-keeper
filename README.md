@@ -1,71 +1,72 @@
-# Welcome to your project
+# Secure Vault File Keeper
 
-## Project info
+![Licença](https://img.shields.io/badge/licença-MIT-blue.svg)
 
-## How can I edit this code?
+Um aplicativo seguro de armazenamento de arquivos construído com tecnologias web modernas. Permite que os usuários armazenem e gerenciem seus arquivos com criptografia de forma segura.
 
-There are several ways of editing your application.
+## ✨ Recursos
 
-**Use **
+- 🔒 Criptografia segura de arquivos
+- 📁 Upload e download de arquivos
+- 🖥️ Interface moderna e responsiva
+- 🔄 Atualizações em tempo real
+- 🌓 Modo claro e escuro
 
-Simply visit the [ Project]() and start prompting.
+## 🚀 Tecnologias
 
-Changes made via  will be committed automatically to this repo.
+- **Frontend**: React com TypeScript
+- **Estilização**: Tailwind CSS
+- **Componentes UI**: Radix UI
+- **Ferramenta de Build**: Vite
+- **Gerenciamento de Estado**: React Query
+- **Formulários**: React Hook Form
 
-**Use your preferred IDE**
+## 🛠️ Pré-requisitos
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in .
+- Node.js (versão 16 ou superior)
+- npm ou yarn
+- Git
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## ⚙️ Instalação
 
-Follow these steps:
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/seuusuario/secure-vault-file-keeper.git
+   cd secure-vault-file-keeper
+   ```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+2. Instale as dependências:
+   ```bash
+   npm install
+   # ou
+   yarn install
+   ```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+3. Inicie o servidor de desenvolvimento:
+   ```bash
+   npm run dev
+   # ou
+   yarn dev
+   ```
 
-# Step 3: Install the necessary dependencies.
-npm i
+4. Abra seu navegador e acesse `http://localhost:5173`
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+## 🏗️ Construção para Produção
+
+```bash
+# Construa a aplicação
+npm run build
+
+# Visualize a versão de produção
+npm run preview
 ```
 
-**Edit a file directly in GitHub**
+## 📝 Licença
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
-**Use GitHub Codespaces**
+## 🤝 Como Contribuir
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Contribuições são bem-vindas! Sinta-se à vontade para enviar um Pull Request.
 
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open []() and click on Share -> Publish.
-
-## Can I connect a custom domain to my  project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https:///tips-tricks/custom-domain#step-by-step-guide)
+## 📧 Contato
