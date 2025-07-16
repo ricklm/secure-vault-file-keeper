@@ -225,7 +225,9 @@ export function downloadBlob(blob: Blob, filename: string): void {
         a.click();
         // Clean up after a short delay
         setTimeout(() => {
-          document.body.removeChild(a);
+          if (a.parentNode === document.body) {
+            document.body.removeChild(a);
+          }
           URL.revokeObjectURL(url);
         }, 100);
       }, 0);

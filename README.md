@@ -1,72 +1,64 @@
 # Secure Vault File Keeper
 
-![Licença](https://img.shields.io/badge/licença-MIT-blue.svg)
+Aplicação web para criptografia e descriptografia de arquivos, garantindo segurança e privacidade diretamente no navegador.
 
-Um aplicativo seguro de armazenamento de arquivos construído com tecnologias web modernas. Permite que os usuários armazenem e gerenciem seus arquivos com criptografia de forma segura.
+## Funcionalidades
 
-## ✨ Recursos
+- **Criptografia de arquivos**: Proteja qualquer arquivo com senha usando AES-256-GCM.
+- **Descriptografia de arquivos**: Recupere arquivos protegidos informando a senha correta.
+- **Processamento local**: Nenhum dado ou senha é enviado para servidores. Tudo acontece no seu navegador.
+- **Interface moderna**: UI responsiva, intuitiva e com feedback visual.
+- **Notificações**: Alertas e toasts para informar sucesso, erro ou progresso.
 
-- 🔒 Criptografia segura de arquivos
-- 📁 Upload e download de arquivos
-- 🖥️ Interface moderna e responsiva
-- 🔄 Atualizações em tempo real
-- 🌓 Modo claro e escuro
+## Como funciona
 
-## 🚀 Tecnologias
+1. **Selecione um arquivo** para criptografar.
+2. **Defina uma senha forte**. Ela será usada para gerar a chave criptográfica.
+3. **Baixe o arquivo criptografado** (.enc).
+4. Para descriptografar, basta fazer upload do arquivo .enc e informar a senha correta.
 
-- **Frontend**: React com TypeScript
-- **Estilização**: Tailwind CSS
-- **Componentes UI**: Radix UI
-- **Ferramenta de Build**: Vite
-- **Gerenciamento de Estado**: React Query
-- **Formulários**: React Hook Form
+> **Atenção:**
+> - Sem a senha correta, não é possível recuperar o conteúdo do arquivo.
+> - Guarde sua senha em local seguro.
 
-## 🛠️ Pré-requisitos
+## Tecnologias Utilizadas
+- React + TypeScript
+- Vite
+- Tailwind CSS
+- Radix UI (shadcn/ui)
+- Web Crypto API (AES-256-GCM, PBKDF2)
 
-- Node.js (versão 16 ou superior)
-- npm ou yarn
-- Git
-
-## ⚙️ Instalação
+## Instalação e Uso
 
 1. Clone o repositório:
-   ```bash
-   git clone https://github.com/seuusuario/secure-vault-file-keeper.git
+   ```sh
+   git clone <url-do-repo>
    cd secure-vault-file-keeper
    ```
-
 2. Instale as dependências:
-   ```bash
+   ```sh
    npm install
-   # ou
-   yarn install
    ```
-
-3. Inicie o servidor de desenvolvimento:
-   ```bash
+3. Rode o projeto em modo desenvolvimento:
+   ```sh
    npm run dev
-   # ou
-   yarn dev
    ```
+4. Acesse `http://localhost:5173` no navegador.
 
-4. Abra seu navegador e acesse `http://localhost:5173`
+## Estrutura do Projeto
+- `src/components/` — Componentes de UI e principais
+- `src/lib/crypto.ts` — Funções de criptografia e utilitários
+- `src/pages/Index.tsx` — Página principal
 
-## 🏗️ Construção para Produção
+## Segurança
+- Criptografia de ponta a ponta: tudo acontece no navegador do usuário.
+- Chave derivada da senha via PBKDF2 + salt aleatório.
+- Algoritmo AES-256-GCM para máxima segurança.
 
-```bash
-# Construa a aplicação
-npm run build
+## Licença
 
-# Visualize a versão de produção
-npm run preview
-```
+MIT
 
-## 📝 Licença
+---
 
-Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
-## 🤝 Como Contribuir
-
-Contribuições são bem-vindas! Sinta-se à vontade para enviar um Pull Request.
-
-## 📧 Contato
+Desenvolvido para quem valoriza privacidade e segurança de dados pessoais ou profissionais.
